@@ -1,6 +1,9 @@
-import { AfterViewInit, Component, HostListener } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ApiService } from './services/api.service';
 import { IRectangle } from './models/rectangle.model';
+
+declare var $: any;
+declare function WrapWithMoveAndResizeTool(name: any): any;
 
 @Component({
   selector: 'app-root',
@@ -9,15 +12,12 @@ import { IRectangle } from './models/rectangle.model';
 })
 export class AppComponent {
   rectangle: IRectangle = {
+    left: 0,
+    top: 0,
     width: 0,
     height: 0
   };
-  mousedown_points: any = null;
-  current_points: any;
-  resize = {
-    x: 190,
-    y: 190
-  };
+  
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
@@ -27,45 +27,30 @@ export class AppComponent {
   getRectangle() {
     this.apiService.getRectangle().subscribe(data => {
       this.rectangle = data.result;
+      setTimeout(function () {
+        WrapWithMoveAndResizeTool("#rectangleSvg");
+      }, 500);
     });
-  }
-
-  @HostListener('document:mousedown', ['$event'])
-  onMouseDown(event: any) {
-    if (event.target.id === 'rectangle') {
-      this.mousedown_points = {
-        x: event.clientX,
-        y: event.clientY
-      }
-    }
   }
 
   @HostListener('document:mousemove', ['$event'])
   OnMouseMove(event: any) {
-    if (this.mousedown_points) {
-      this.current_points = {
-        x: event.clientX,
-        y: event.clientY
-      }
-
-      var w = this.rectangle.width;
-      var h = this.rectangle.height;
-
-      var dx = this.current_points.x - this.mousedown_points.x;
-      var dy = this.current_points.y - this.mousedown_points.y;
-
-      w += dx;
-      h += dy;
-
-      this.rectangle.width = w;
-      this.rectangle.height = h;
-
-      this.mousedown_points = this.current_points;
-    }
+    this.rectangle.width = $("#rectangleSvg").width();
+    this.rectangle.height = $("#rectangleSvg").height();
   }
 
-  @HostListener('document:mouseup', ['$event'])
-  OnMouseUp(event: any) {
-    this.mousedown_points = null;
+  reset() {
+    this.getRectangle();
+  }
+
+  save() {
+    let input: | IRectangle = {
+      left: Math.floor($("#rectangleSvg").parent().parent().offset().left),
+      top: Math.floor($("#rectangleSvg").parent().parent().offset().top),
+      width: $("#rectangleSvg").width(),
+      height: $("#rectangleSvg").height()
+    }
+    this.apiService.updateRectangle(input).subscribe(data => {
+    });
   }
 }
