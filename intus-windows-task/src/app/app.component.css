@@ -1,8 +1,19 @@
-.flex-container {
+.page {
     display: flex;
-    flex-wrap: nowrap;
+    flex-direction: column;
 }
 
-.flex-container>div {
-    margin: 10px;
+.page>div {
+    flex: 1;
+}
+
+.page-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.page-row div {
+    flex: 1;
+    white-space: nowrap;
+    margin: auto;
 }

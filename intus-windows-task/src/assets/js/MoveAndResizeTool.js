@@ -232,6 +232,8 @@ MoveAndResizeElementWrapper.prototype.onMouseMove = function (event) {
 }
 
 MoveAndResizeElementWrapper.prototype.applyMouseMoveAction = function (deltaX, deltaY) {
+
+
     var deltaTop = 0;
     var deltaLeft = 0;
     var deltaWidth = 0;
@@ -290,20 +292,29 @@ MoveAndResizeElementWrapper.prototype.updateSize = function (deltaWidth, deltaHe
     }
 
     // Set the new size.
-    $(this.originalElement).css('width', newWidth + 'px');
-    $(this.originalElement).css('height', newHeight + 'px');
+    if (newWidth >= 50) {
+        $(this.originalElement).css('width', newWidth + 'px');
+    }
+    if (newHeight >= 50) {
+        $(this.originalElement).css('height', newHeight + 'px');
+    }
 }
 
 MoveAndResizeElementWrapper.prototype.updatePosition = function (deltaLeft, deltaTop) {
     // Calculate the new position.
     var elemLeft = parseInt($(this.externalWrapperQueryStr).css('left'));
     var elemTop = parseInt($(this.externalWrapperQueryStr).css('top'));
+
     var newLeft = elemLeft + deltaLeft;
     var newTop = elemTop + deltaTop;
 
     // Set the new position.
+    //if (newLeft >= 0 && elemRight >= 50) {
     $(this.externalWrapperQueryStr).css('left', newLeft + 'px');
+    //}
+    //if (newTop >= 0 && elemBottom >= 50) {
     $(this.externalWrapperQueryStr).css('top', newTop + 'px');
+    //}
 }
 
 MoveAndResizeElementWrapper.prototype.adjustWrapper = function () {

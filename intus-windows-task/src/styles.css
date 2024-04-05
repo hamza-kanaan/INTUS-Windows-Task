@@ -1,3 +1,11 @@
-body{
-    height: calc(100vh - 60px);
+body {
+    background-color: #e0e0e0;
+    margin: 5px;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+* {
+    font-size: 18px;
 }

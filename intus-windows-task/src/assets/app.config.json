@@ -1,3 +1,8 @@
 {
-    "ApiUrl": "https://localhost:44343/api/"
+    "languages": [
+        "en-US",
+        "fr-FR"
+    ],
+    "defaultLanguage": "en-US",
+    "apiUrl": "https://localhost:44343/api/"
 }

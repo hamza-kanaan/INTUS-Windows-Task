@@ -4,15 +4,19 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\INTUS.Windows.Task.Business\INTUS.Windows.Task.Business.csproj" />
     <ProjectReference Include="..\INTUS.Windows.Task.Model\INTUS.Windows.Task.Model.csproj" />
+    <ProjectReference Include="..\INTUS.Windows.Task.Resource\INTUS.Windows.Task.Resource.csproj" />
   </ItemGroup>
 
 </Project>

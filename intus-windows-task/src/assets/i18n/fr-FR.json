@@ -1,0 +1,12 @@
+{
+    "Language": "en-US",
+    "Title": "SVG Rectangulaire",
+    "Reset": "Réinitialiser",
+    "Save": "Sauvegarder",
+    "Parameter": "Paramètre",
+    "Cancel": "Annuler",
+    "Confirm": "Confirmer",
+    "Confirmation": "Confirmation",
+    "Message_ConfirmReset": "Êtes-vous sûr de vouloir réinitialiser vos mises à jour?",
+    "Message_ConfirmSave": "Êtes-vous sûr de vouloir enregistrer vos mises à jour?"
+}

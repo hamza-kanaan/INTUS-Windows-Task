@@ -4,7 +4,7 @@ import { AppConfig } from '../models/app-config.model';
 
 @Injectable({ providedIn: 'root' })
 export class AppConfigService {
-    data: AppConfig = {};
+    data : any;
 
     constructor(private http: HttpClient) { }
 

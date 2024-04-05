@@ -1,5 +1,5 @@
-export interface AppConfig {
-    Languages?: string[];
-    DefaultLanguage?: string;
-    ApiUrl?: string;
+export class AppConfig {
+    languages!: string[];
+    defaultLanguage!: string;
+    apiUrl!: string;
 }

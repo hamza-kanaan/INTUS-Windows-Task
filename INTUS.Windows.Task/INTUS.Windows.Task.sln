@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INTUS.Windows.Task.Business
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INTUS.Windows.Task.Model", "INTUS.Windows.Task.Model\INTUS.Windows.Task.Model.csproj", "{7769DD81-2AD9-4A39-A3DD-B67D5E1CA14F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INTUS.Windows.Task.Resource", "INTUS.Windows.Task.Resource\INTUS.Windows.Task.Resource.csproj", "{18B1416C-A9E3-4BA0-803A-DAB13E3BBC91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7769DD81-2AD9-4A39-A3DD-B67D5E1CA14F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7769DD81-2AD9-4A39-A3DD-B67D5E1CA14F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7769DD81-2AD9-4A39-A3DD-B67D5E1CA14F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18B1416C-A9E3-4BA0-803A-DAB13E3BBC91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18B1416C-A9E3-4BA0-803A-DAB13E3BBC91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18B1416C-A9E3-4BA0-803A-DAB13E3BBC91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18B1416C-A9E3-4BA0-803A-DAB13E3BBC91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
