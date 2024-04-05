@@ -219,6 +219,7 @@ MoveAndResizeElementWrapper.prototype.initializeEventHandlers = function () {
 }
 
 MoveAndResizeElementWrapper.prototype.onMouseMove = function (event) {
+
     var currMouseX = event.clientX;
     var currMouseY = event.clientY;
 
@@ -305,16 +306,31 @@ MoveAndResizeElementWrapper.prototype.updatePosition = function (deltaLeft, delt
     var elemLeft = parseInt($(this.externalWrapperQueryStr).css('left'));
     var elemTop = parseInt($(this.externalWrapperQueryStr).css('top'));
 
+    if(elemLeft < 0){
+       $(this.externalWrapperQueryStr).css('left','0px');
+       return;
+    }
+    if(elemLeft > (document.body.offsetWidth - $(this.externalWrapperQueryStr).width())){
+       $(this.externalWrapperQueryStr).css('left',document.body.offsetWidth - $(this.externalWrapperQueryStr).width() + 'px');
+       return;
+    }
+    if(elemTop < 0){
+       $(this.externalWrapperQueryStr).css('top','0px');
+       return;
+    }
+    if(elemTop > (document.body.offsetHeight - $(this.externalWrapperQueryStr).height() - 110)){
+       $(this.externalWrapperQueryStr).css('top',document.body.offsetHeight - $(this.externalWrapperQueryStr).height() - 110 + 'px');
+    }
+
+    elemLeft = parseInt($(this.externalWrapperQueryStr).css('left'));
+    elemTop = parseInt($(this.externalWrapperQueryStr).css('top'));
+
     var newLeft = elemLeft + deltaLeft;
     var newTop = elemTop + deltaTop;
 
     // Set the new position.
-    //if (newLeft >= 0 && elemRight >= 50) {
     $(this.externalWrapperQueryStr).css('left', newLeft + 'px');
-    //}
-    //if (newTop >= 0 && elemBottom >= 50) {
     $(this.externalWrapperQueryStr).css('top', newTop + 'px');
-    //}
 }
 
 MoveAndResizeElementWrapper.prototype.adjustWrapper = function () {

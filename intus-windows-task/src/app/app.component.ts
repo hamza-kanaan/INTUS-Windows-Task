@@ -40,6 +40,7 @@ export class AppComponent {
   getRectangle() {
     this.apiService.getRectangle().subscribe(data => {
       this.rectangle = data.result;
+      localStorage.setItem("rectangle", JSON.stringify(data.result));
       setTimeout(function () {
         WrapWithMoveAndResizeTool("#rectangleSvg");
         $(document).trigger("mousemove");
@@ -76,7 +77,11 @@ export class AppComponent {
     })
       .then((result) => {
         if (result) {
-          this.getRectangle();
+          var rectangle = JSON.parse(localStorage.getItem("rectangle") || '{}');
+          this.rectangle.width = rectangle.width;
+          this.rectangle.height = rectangle.height;
+          $("#rectangleSvg").parent().parent().css("left", rectangle.left - 8);
+          $("#rectangleSvg").parent().parent().css("top", rectangle.top - 8);
         } else {
         }
       });
