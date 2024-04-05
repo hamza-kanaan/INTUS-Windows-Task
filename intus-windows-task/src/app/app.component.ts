@@ -15,13 +15,8 @@ declare function WrapWithMoveAndResizeTool(name: any): any;
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  rectangle: Rectangle = {
-    left: 0,
-    top: 0,
-    width: 0,
-    height: 0
-  };
   language: any;
+  extraRectangleToContainer = 8;
 
   constructor(private apiService: ApiService, public translate: TranslateService, private titleService: Title, private appConfig: AppConfigService) {
     this.language = this.appConfig.data.languages[1];
@@ -37,21 +32,44 @@ export class AppComponent {
     this.getRectangle();
   }
 
-  getRectangle() {
-    this.apiService.getRectangle().subscribe(data => {
-      this.rectangle = data.result;
-      localStorage.setItem("rectangle", JSON.stringify(data.result));
-      setTimeout(function () {
-        WrapWithMoveAndResizeTool("#rectangleSvg");
-        $(document).trigger("mousemove");
-      }, 50);
-    });
+  public get rectangleWidth() {
+    return $("#rectangleSvg").width();
   }
 
-  @HostListener('document:mousemove', ['$event'])
-  OnMouseMove(event: any) {
-    this.rectangle.width = $("#rectangleSvg").width();
-    this.rectangle.height = $("#rectangleSvg").height();
+  public get rectangleHeight() {
+    return $("#rectangleSvg").height();
+  }
+
+  public get initialRectangle() {
+    return JSON.parse(localStorage.getItem("rectangle") || '{}');
+  }
+
+  public set initialRectangle(value: Rectangle) {
+    localStorage.setItem("rectangle", JSON.stringify(value));
+  }
+
+  public get rectangleContainer() {
+    let rectangleContainer = {
+      left: Math.floor($("#rectangleSvg").parent().parent()[0].offsetLeft),
+      top: Math.floor($("#rectangleSvg").parent().parent()[0].offsetTop)
+    };
+    return rectangleContainer;
+  }
+
+  public set rectangleContainer(rectangle: any) {
+    $("#rectangleSvg").parent().parent().css("left", rectangle.left - this.extraRectangleToContainer);
+    $("#rectangleSvg").parent().parent().css("top", rectangle.top - this.extraRectangleToContainer);
+  }
+
+  getRectangle() {
+    this.apiService.getRectangle().subscribe(data => {
+      this.initialRectangle = data.result;
+      $("#rectangleSvg").width(data.result.width);
+      $("#rectangleSvg").height(data.result.height);
+      $("#rectangleSvg").css("left", data.result.left);
+      $("#rectangleSvg").css("top", data.result.top);
+      WrapWithMoveAndResizeTool("#rectangleSvg");
+    });
   }
 
   reset() {
@@ -77,12 +95,10 @@ export class AppComponent {
     })
       .then((result) => {
         if (result) {
-          var rectangle = JSON.parse(localStorage.getItem("rectangle") || '{}');
-          this.rectangle.width = rectangle.width;
-          this.rectangle.height = rectangle.height;
-          $("#rectangleSvg").parent().parent().css("left", rectangle.left - 8);
-          $("#rectangleSvg").parent().parent().css("top", rectangle.top - 8);
-        } else {
+          $("#rectangleSvg").width(this.initialRectangle.width);
+          $("#rectangleSvg").height(this.initialRectangle.height);
+          $(document).trigger("mousemove");
+          this.rectangleContainer = this.initialRectangle;
         }
       });
   }
@@ -110,15 +126,14 @@ export class AppComponent {
     })
       .then((result) => {
         if (result) {
-          let input: | Rectangle = {
-            left: Math.floor($("#rectangleSvg").parent().parent()[0].offsetLeft) + 8,
-            top: Math.floor($("#rectangleSvg").parent().parent()[0].offsetTop) + 8,
-            width: $("#rectangleSvg").width(),
-            height: $("#rectangleSvg").height()
+          let rectangle: | Rectangle = {
+            left: this.rectangleContainer.left + this.extraRectangleToContainer,
+            top: this.rectangleContainer.top + this.extraRectangleToContainer,
+            width: this.rectangleWidth,
+            height: this.rectangleHeight
           }
-          this.apiService.updateRectangle(input).subscribe(data => {
+          this.apiService.updateRectangle(rectangle).subscribe(data => {
           });
-        } else {
         }
       });
   }

@@ -108,11 +108,11 @@ MoveAndResizeElementWrapper.prototype.cornerActionTriggerRadius = 8;
 
 MoveAndResizeElementWrapper.prototype.resizingBorderStr =
     '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="left:0px;top:0px;position:relative;width:100%;height:100%" >' +
-    // '<style type="text/css"> .actionTrigger { transition: opacity 0.5s; opacity: 0;} .actionTrigger:hover{transition: opacity 0.3s;opacity: 0.3;}</style>' +
-    '<line x1="0" y1="0" x2="100%" y2="0" stroke="#808080" stroke-width="1" class="topDrawing" />' +
-    '<line x1="0" y1="100%" x2="100%" y2="100%" stroke="#808080" stroke-width="1" class="bottomDrawing" />' +
-    '<line x1="0" y1="0" x2="0" y2="100%" stroke="#808080" stroke-width="1"  class="leftDrawing" />' +
-    '<line x1="100%" y1="0" x2="100%" y2="100%" stroke="#808080" stroke-width="1" class="rightDrawing" />' +
+    '<style type="text/css"> .actionTrigger { transition: opacity 0.5s; opacity: 0;} .actionTrigger:hover{transition: opacity 0.3s;opacity: 0.3;}</style>' +
+    '<line x1="0" y1="0" x2="100%" y2="0" stroke="#808080" stroke-width="1" stroke-dasharray="5,5" class="topDrawing" />' +
+    '<line x1="0" y1="100%" x2="100%" y2="100%" stroke="#808080" stroke-width="1" stroke-dasharray="5,5" class="bottomDrawing" />' +
+    '<line x1="0" y1="0" x2="0" y2="100%" stroke="#808080" stroke-width="1" stroke-dasharray="5,5" class="leftDrawing" />' +
+    '<line x1="100%" y1="0" x2="100%" y2="100%" stroke="#808080" stroke-width="1" stroke-dasharray="5,5" class="rightDrawing" />' +
     '<circle cx="0" cy="0" r="3" stroke="#0000FF" stroke-width="1" fill="#CCCCFF" class="topLeftDrawing" />' +
     '<circle cx="100%" cy="0" r="3" stroke="#0000FF" stroke-width="1" fill="#CCCCFF" class="topRightDrawing" />' +
     '<circle cx="0" cy="100%" r="3" stroke="#0000FF" stroke-width="1" fill="#CCCCFF" class="bottomLeftDrawing" />' +
@@ -219,7 +219,6 @@ MoveAndResizeElementWrapper.prototype.initializeEventHandlers = function () {
 }
 
 MoveAndResizeElementWrapper.prototype.onMouseMove = function (event) {
-
     var currMouseX = event.clientX;
     var currMouseY = event.clientY;
 
@@ -233,8 +232,6 @@ MoveAndResizeElementWrapper.prototype.onMouseMove = function (event) {
 }
 
 MoveAndResizeElementWrapper.prototype.applyMouseMoveAction = function (deltaX, deltaY) {
-
-
     var deltaTop = 0;
     var deltaLeft = 0;
     var deltaWidth = 0;
@@ -293,6 +290,8 @@ MoveAndResizeElementWrapper.prototype.updateSize = function (deltaWidth, deltaHe
     }
 
     // Set the new size.
+    // $(this.originalElement).css('width', newWidth + 'px');
+    // $(this.originalElement).css('height', newHeight + 'px');
     if (newWidth >= 50) {
         $(this.originalElement).css('width', newWidth + 'px');
     }
@@ -306,20 +305,20 @@ MoveAndResizeElementWrapper.prototype.updatePosition = function (deltaLeft, delt
     var elemLeft = parseInt($(this.externalWrapperQueryStr).css('left'));
     var elemTop = parseInt($(this.externalWrapperQueryStr).css('top'));
 
-    if(elemLeft < 0){
-       $(this.externalWrapperQueryStr).css('left','0px');
-       return;
+    if (elemLeft < 0) {
+        $(this.externalWrapperQueryStr).css('left', '0px');
+        return;
     }
-    if(elemLeft > (document.body.offsetWidth - $(this.externalWrapperQueryStr).width())){
-       $(this.externalWrapperQueryStr).css('left',document.body.offsetWidth - $(this.externalWrapperQueryStr).width() + 'px');
-       return;
+    if (elemLeft > (document.body.offsetWidth - $(this.externalWrapperQueryStr).width())) {
+        $(this.externalWrapperQueryStr).css('left', document.body.offsetWidth - $(this.externalWrapperQueryStr).width() + 'px');
+        return;
     }
-    if(elemTop < 0){
-       $(this.externalWrapperQueryStr).css('top','0px');
-       return;
+    if (elemTop < 0) {
+        $(this.externalWrapperQueryStr).css('top', '0px');
+        return;
     }
-    if(elemTop > (document.body.offsetHeight - $(this.externalWrapperQueryStr).height() - 110)){
-       $(this.externalWrapperQueryStr).css('top',document.body.offsetHeight - $(this.externalWrapperQueryStr).height() - 110 + 'px');
+    if (elemTop > (document.body.offsetHeight - $(this.externalWrapperQueryStr).height() - 110)) {
+        $(this.externalWrapperQueryStr).css('top', document.body.offsetHeight - $(this.externalWrapperQueryStr).height() - 110 + 'px');
     }
 
     elemLeft = parseInt($(this.externalWrapperQueryStr).css('left'));
