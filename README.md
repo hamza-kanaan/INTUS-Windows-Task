@@ -46,7 +46,8 @@ This frontend is built using the Angular framework and jQuery:
 - In assets folder:
   - app.config.json file with configuration related to languages and backend API URL
   - i18n folder with json files for the culture resources
-
+- Because the system depends on a third party SVG resize tool which is built on jQuery, we use jQuery within Angular for the resizing process and not only the standard Angular binding process.
+  
 ## Installing
 
 - Requirements
