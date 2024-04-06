@@ -30,6 +30,7 @@ This backend is built using a two-tier architecture (Business/Presentation) [Not
     - Serilog for logging
     - Dependency Injection pattern
     - Swagger to test and document the API
+    - Folder named `Jsons` contains `rectangle.json` file for case rectangle. (Note: Backend is ready to accept more cases (ex: circle, triangle, ..) with a little changes that do not affect on the current part)
   - INTUS.Windows.Task.Business
     - Business layer/tier using Repository Pattern (This layer is responsible for loading/saving JSON)
   - INTUS.Windows.Task.Model
